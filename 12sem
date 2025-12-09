@@ -1,0 +1,96 @@
+#include <iostream>
+#include <locale>
+#include <string>
+using namespace std;
+
+class Shape {
+public:
+    int length;
+};
+
+class Publication {
+private:
+    string title;
+public:
+    Publication() : title("") {}
+    Publication(string t) : title(t) {}
+    
+    void displayInfo() {
+        cout << "Название публикации: " << title << endl;
+    }
+    
+    void setTitle(string t) {
+        title = t;
+    }
+};
+
+class Book : public Publication {
+private:
+    string name;
+    string author;
+    int year;
+public:
+    Book(string n, string a, int y) : name(n), author(a), year(y) {}
+    
+    void displayInfo() {
+        cout << "\n=== Информация о книге ===" << endl;
+        Publication::displayInfo();
+        cout << "Название книги: " << name << endl;
+        cout << "Автор: " << author << endl;
+        cout << "Год издания: " << year << endl;
+        cout << "=========================\n" << endl;
+    }
+};
+
+class Rectangle : public Shape {
+private:
+    int width;
+public:
+    Rectangle(int l, int w) : width(w) {
+        length = l;
+    }
+    
+    int calculateArea() {
+        return length * width;
+    }
+    
+    int calculatePerimeter() {
+        return 2 * (length + width);
+    }
+    
+    void displayInfo() {
+        cout << "\n=== Характеристики прямоугольника ===" << endl;
+        cout << "Длина: " << length << " ед." << endl;
+        cout << "Ширина: " << width << " ед." << endl;
+        cout << "Площадь: " << calculateArea() << " кв.ед." << endl;
+        cout << "Периметр: " << calculatePerimeter() << " ед." << endl;
+        cout << "====================================\n" << endl;
+    }
+};
+
+int main()
+{
+    setlocale(LC_ALL, "Russian");
+    
+    cout << "Демонстрация работы с классами\n" << endl;
+    
+    // Работа с книгой
+    Book book1("Война и мир", "Лев Толстой", 1869);
+    book1.setTitle("Классическая литература");
+    book1.displayInfo();
+    
+    // Работа с прямоугольником
+    Rectangle rect1(23, 5);
+    
+    // Можно получить значения отдельно
+    int area = rect1.calculateArea();
+    int perimeter = rect1.calculatePerimeter();
+    
+    rect1.displayInfo();
+    
+    cout << "Отдельно вычисленные значения:" << endl;
+    cout << "Площадь: " << area << " кв.ед." << endl;
+    cout << "Периметр: " << perimeter << " ед." << endl;
+    
+    return 0;
+}
